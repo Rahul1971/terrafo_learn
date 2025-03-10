@@ -1,0 +1,19 @@
+- name: " Install terraform"
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: " Install yum utils"
+      dnf:
+        name: yum-utils
+        state: installed
+    - name: "Get the URL and add to repos.d"
+      get_url:
+        url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+        dest: /etc/yum.repos.d/terraform
+
+    - name: " Install yum utils"
+      dnf:
+        name: terraform
+        state: installed
+
