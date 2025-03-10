@@ -10,7 +10,7 @@
     - name: "Get the URL and add to repos.d"
       get_url:
         url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-        dest: /etc/yum.repos.d/terraform
+        dest: /etc/yum.repos.d/terraform.repo
 
     - name: " Install yum utils"
       dnf:
