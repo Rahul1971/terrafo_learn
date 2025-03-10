@@ -20,11 +20,11 @@ resource "aws_security_group" "ssh_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-resource "aws_instance" "testserver" {
+resource "aws_instance" "testserve2" {
   ami="ami-0c7af5fe939f2677f"
   instance_type="t2.micro"
 
   tags = {
-    Name="testser"
+    Name="testser2"
   }
 }
