@@ -1,19 +1,29 @@
-- name: " Install terraform"
-  hosts: localhost
+- name: Install docker
+  hosts: local
   connection: local
   become: true
   tasks:
-    - name: " Install yum utils"
-      dnf:
-        name: yum-utils
-        state: installed
-    - name: "Get the URL and add to repos.d"
-      get_url:
-        url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-        dest: /etc/yum.repos.d/terraform.repo
 
-    - name: " Install yum utils"
+    - name: "Download docker from repo"
+      get_url:
+        url: https://download.docker.com/linux/rhel/docker-ce.repo
+        dest: /etc/yum.repos.d/docker.repo
+
+
+    - name: "Install docker"
       dnf:
-        name: terraform
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
         state: installed
+
+    - name: "Start service"
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
 
