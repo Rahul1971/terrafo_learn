@@ -1,0 +1,30 @@
+- name: Install docker
+  hosts: local
+  connection: local
+  become: true
+  tasks:
+
+    - name: "Download docker from repo"
+      get_url:
+        url: https://download.docker.com/linux/rhel/docker-ce.repo
+        dest: /etc/yum.repos.d/docker.repo
+
+
+    - name: "Install docker"
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: installed
+
+    - name: "Start service"
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+
+
